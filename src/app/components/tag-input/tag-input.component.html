@@ -1,0 +1,28 @@
+<div class="content">
+  <div class="tag-input">
+    <form [formGroup]="form" (submit)="addTag($event, form.value.tag)">
+      <label>Ключевые навыки (до 15 штук)</label>
+      <div id="autocomplete">
+        <div class="field">
+          <ul class="form-control tagit" (click)="focusInput($event)" [ngClass]="{'infocus': focusStatus }">
+            <li class="tagit-choice" *ngFor="let tag of tags; let i = index">
+              <span class="tagit-label">{{tag}}</span>
+              <a class="tagit-close" (click)="deleteTag(tag)">
+                <span class="text-icon">x</span>
+              </a>
+            </li>
+            <li class="tagit-new">
+              <input type="text" name="tag" #myInput formControlName="tag" (keyup)="searchTag(myInput.value)">
+            </li>
+          </ul>
+        </div>
+        <div class="tag-list" [hidden]="!focusStatus">
+          <!--[hidden]="!focusStatus"-->
+          <ul>
+            <li *ngFor="let tag of tagList;let i = index" (click)="addTag($event, tag, i)">{{tag}}</li>
+          </ul>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
